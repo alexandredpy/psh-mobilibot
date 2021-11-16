@@ -21,4 +21,8 @@ Modify the $routers array :
 $database = 'C:\Path\file.sqlite'
 $query = 'your sql query'
 Invoke-SQLiteQuery -DataSource $database -Query $query
+
+#Example :
+$query = "CREATE TABLE yourtable (hostname TEXT PRIMARY KEY, location TEXT)"
+$query = "INSERT INTO yourtable (hostname, location) VALUES ('router1', 'lyon')"
 ```
