@@ -1,27 +1,31 @@
 # COPYRIGHT ALEXANDRE DUPOUY
 # MOBILIBOT - POWERSHELL 
-# Based on https://github.com/LeoGeneret/MobiliBot
+# Idea created with base of https://github.com/LeoGeneret/MobiliBot
 
-#Presets
+# Presets
+Import-Module SimplySql
 $URL = 'https://mobilijeune.actionlogement.fr/api/dossiers/1.0/checkDailyQuota'
-$timestamp = Get-Date -DisplayHint Time
-$mailcreds = Import-CliXml -Path 'C:\Users\Administrateur\Documents\mail-creds.xml'
 
 $request = Invoke-WebRequest -Uri $URL # Current state
-$return = $request.Content # Get only the content value
+$return = $request.Content # Get only the content value (false or true)
 
-#Timestamp it
-Write-Output "$timestamp | $return" >> .\Mobilibot.txt
-Write-Output $return >> .\last-state.txt
-
-#Get the last line
-$lastline = Get-Content -Tail 1  -Path .\last-state.txt
-
-#If current state is different from last state
-#Then alert me by email
-if ($request -ne $lastline ) 
+# If false then 0, else 1
+if ($return = 'false') 
 {
-    Send-MailMessage -From 'MobiliBot - ADU <services@alexandredupouy.fr>' -To 'alexandre@dupouy.ovh' -Subject "MOBILIBOT - State is $request" -SmtpServer "node-email-1.pulsepanel.eu" -UseSsl -Port 587 -Credential $mailcreds -Body "Current state : $request -- $timestamp"
+    [int]$resultcode = 0
+}
+else 
+{
+    [int]$resultcode = 1    
 }
 
+# Connect to database
+Open-MySqlConnection -Server '127.0.0.1' -UserName 'mobilibot' -Password 'mobilibot' -Port '3306' -Database 'mobilibot' -SSLMode None
+
+# Insert into DB
+$query = "INSERT INTO mobilitable (resultcode) VALUES ('$resultcode')"
+Invoke-SqlUpdate -Query $query
+
+# Close SQL Connection
+Close-SqlConnection 
 
