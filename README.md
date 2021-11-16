@@ -1,28 +1,25 @@
 # psh-mobilibot
 PowerShell script to get Mobilijeune's quota
+Used and tested with PowerShell 5.1 (Windows) and PowerShell 7.1 (Debian)
 
 ## Requirements :
+- An up and running MySQL Database Server
+- The SimplySQL PowerShell's module :
 ```powershell
-# Install the Posh-SSH module : 
-Install-Module -Name PSSQlite
+# Install the SimplySQL module : 
+Install-Module -Name SimplySQL
 ```
-## To create a credential PS Object :
-```powershell
-$credential = Get-Credential -Message "Enter the router password" -Username admin
-$credential | Export-CliXml -Path 'C:\Path\credential.xml'
+- Optional but useful : phpMyAdmin
 
-## To import it and use it :
-$credential = Import-CliXml -Path 'C:\Path\credential.xml'
-```
-
-#### To make a SQL Query
-Modify the $routers array :
-```powershell
-$database = 'C:\Path\file.sqlite'
-$query = 'your sql query'
-Invoke-SQLiteQuery -DataSource $database -Query $query
-
-#Example :
-$query = "CREATE TABLE yourtable (hostname TEXT PRIMARY KEY, location TEXT)"
-$query = "INSERT INTO yourtable (hostname, location) VALUES ('router1', 'lyon')"
+## MySQL commands used :
+```sql
+CREATE DATABASE mobilibot;
+CREATE TABLE mobilitable (
+    testid int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    resultcode int NOT NULL,
+    time timestamp
+);
+CREATE USER 'user'@localhost IDENTIFIED BY 'password';
+GRANT ALL PRIVILEGES ON *.* TO 'user'@localhost IDENTIFIED BY 'password';
+FLUSH PRIVILEGES;
 ```
