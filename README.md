@@ -23,3 +23,6 @@ CREATE USER 'user'@localhost IDENTIFIED BY 'password';
 GRANT ALL PRIVILEGES ON *.* TO 'user'@localhost IDENTIFIED BY 'password';
 FLUSH PRIVILEGES;
 ```
+
+## License :
+[Creative Commons : CC-BY-NC-SA](https://creativecommons.org/licenses/by-nc-sa/4.0/)

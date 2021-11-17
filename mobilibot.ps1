@@ -1,6 +1,7 @@
-# COPYRIGHT ALEXANDRE DUPOUY
-# MOBILIBOT - POWERSHELL 
-# Idea created with base of https://github.com/LeoGeneret/MobiliBot
+# MobiliBot - PowerShell
+# Author : Alexandre DPY (https://github.com/alexandredpy)$
+# License : CC-BY-NC-SA
+# Thanks to : https://github.com/LeoGeneret/MobiliBot
 
 # Presets
 Import-Module SimplySql
