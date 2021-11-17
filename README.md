@@ -1,5 +1,6 @@
-# psh-mobilibot
+# MobiliBot - Powershell
 PowerShell script to get Mobilijeune's quota
+
 Used and tested with PowerShell 5.1 (Windows) and PowerShell 7.1 (Debian)
 
 ## Requirements :
