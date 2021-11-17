@@ -10,7 +10,7 @@ $URL = 'https://mobilijeune.actionlogement.fr/api/dossiers/1.0/checkDailyQuota'
 $request = Invoke-WebRequest -Uri $URL # Current state
 $return = $request.Content # Get only the content value (false or true)
 
-# If false then 0, if true then 1, else 2
+# If false then 0, if true then 1, else -1
 # YES, this isn't optimized
 if ($return -eq 'false') 
 {
@@ -22,7 +22,7 @@ if ($return -eq 'true')
 }
 if ($return -ne 'true' -and $return -ne 'true') 
 {
-    [int]$resultcode = 2   
+    [int]$resultcode = -1   
 }
 
 # Connect to database
