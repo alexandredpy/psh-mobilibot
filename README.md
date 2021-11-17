@@ -17,7 +17,7 @@ CREATE DATABASE mobilibot;
 CREATE TABLE mobilitable (
     testid int NOT NULL AUTO_INCREMENT PRIMARY KEY,
     resultcode int NOT NULL,
-    time timestamp
+    time datetime
 );
 CREATE USER 'user'@localhost IDENTIFIED BY 'password';
 GRANT ALL PRIVILEGES ON *.* TO 'user'@localhost IDENTIFIED BY 'password';
